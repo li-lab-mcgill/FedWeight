@@ -87,6 +87,7 @@ Parameters:
     - `vqvae`: VQ-VAE
 
 ### FedWeight-ETM
+Inside `notebook/etm` folder, run the following commands:
 ```bash
 # Non-federated ETM
 python3 etm.py --num_topics ${num_topics}
@@ -101,6 +102,3 @@ Parameters:
 - `num_topics`: Number of topics (e.g. 64)
 
 ## Citation
-```
-TODO: citation in latex
-```
