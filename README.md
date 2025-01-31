@@ -46,7 +46,7 @@ pip install -r requirements.txt
 - Required libraries (see `requirements.txt`)
 
 ## Usage
-Run drug harmonization:
+### Drug harmonization
 - Create `data` directory under the root file.
 - Inside `data` directory, create `eicu` and `pretrained` subdirectory.
 - Download the eICU Collaborative Research Database and put it inside the `data/eicu` folder.
@@ -55,7 +55,7 @@ Run drug harmonization:
 - Run `drug_harmonization.py` script. It may take a couple of hours.
 - Find the harmonized dataset `eicu_harmonized.csv` inside `output` folder.
 
-Run the experiments using FedWeight / FedAvg:
+### FedWeight
 ```bash
 python3 main.py \
     experiment=${experiment} \
@@ -86,14 +86,21 @@ Parameters:
     - `vae`: VAE
     - `vqvae`: VQ-VAE
 
-Run ETM / FedAvg-ETM / FedWeight-ETM:
+### FedWeight-ETM
 ```bash
+# Non-federated ETM
 python3 etm.py --num_topics ${num_topics}
+
+# FedAvg-ETM
 python3 fedavg_etm.py --num_topics ${num_topics}
+
+# FedWeight-ETM
 python3 fedweight_etm.py --num_topics ${num_topics}
 ```
 Parameters:
 - `num_topics`: Number of topics (e.g. 64)
 
-## Paper
-For more details, please refer to our [paper](TODO).
+## Citation
+```
+TODO: citation in latex
+```
