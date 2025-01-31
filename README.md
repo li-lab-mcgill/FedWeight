@@ -31,7 +31,7 @@ FedAvg-ETM and FedWeight-ETM training process. **a.** FedAvg-ETM. In each local 
 ## Installation
 ```bash
 # Clone the repository
-git clone TODO
+git clone https://github.com/li-lab-mcgill/FedWeight.git
 
 # Create a virtual environment
 python -m venv venv
