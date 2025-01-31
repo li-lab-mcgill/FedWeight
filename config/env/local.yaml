@@ -1,0 +1,4 @@
+dataset_path: "../data/"
+log_path: "../log/"
+output_path: "../output/"
+use_cuda: False

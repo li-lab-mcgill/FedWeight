@@ -1,0 +1,41 @@
+task: "simulation"
+density_estimator: "vae"
+made_epochs: 150
+made_hiddens: "256"
+made_num_masks: 1
+made_samples: 10
+made_resample_every: 20
+made_natural_ordering: False
+made_learning_rate: 0.0001
+made_weight_decay: 0.0001
+num_epochs: 5
+vae_epochs: 55
+vae_latent_dim: 8
+vae_hiddens: "64,64"
+vae_learning_rate: 0.0001
+vae_weight_decay: 0.0001
+lda_topics: 20
+reweight_phi: 1.0
+reweight_lambda: 1.0
+num_rounds: 500
+learning_rate: 0.0001
+weight_decay: 0.0001
+fed_weight_method: "fed_weight_method_avg" # Other options: fed_weight_method_sgd
+fl_hiddens: null
+focal_alpha: 0.85
+focal_gamma: 2.0
+bias_init_prior_prob: 0.85
+total_feature: 247
+simulate_original_path: "/simulate/41/simulate_mlp_weights.pt"
+simulate_x_source_path: "/simulate/41/simulate_x_source.csv"
+simulate_y_source_path: "/simulate/41/simulate_y_source.csv"
+simulate_x_target_path: "/simulate/41/simulate_x_target.csv"
+simulate_y_target_path: "/simulate/41/simulate_y_target.csv"
+test_size: 0.5
+val_size: 0.5
+batch_size: 64
+algorithm: "both" # Will conduct paired t-test if using "both". Other options: unweighted, weighted
+target_hospital_id: "target"
+total_seed: 100 # If test_with_bootstrap is True, train once and test with seed
+test_with_bootstrap: True
+init_global_model: "/simulate/41/init_simulate_model.pt"

@@ -1,0 +1,50 @@
+task: "ventilator" # Other options: ventilator, sepsis
+made_epochs: 200
+# made_hiddens: "256,256"
+density_estimator: "made" # Other options: made, vae
+made_hiddens: "268"
+made_num_masks: 1 # Other options: 10
+made_samples: 10
+made_resample_every: 20 # Other options: 5
+made_natural_ordering: False # Other options: True
+made_learning_rate: 0.00005
+made_weight_decay: 0.001
+num_epochs: 5
+vae_epochs: 100 # High var
+vae_latent_dim: 8
+vae_hiddens: "64,64"
+vae_learning_rate: 0.00005
+vae_weight_decay: 0.001
+lda_topics: 20
+# High var ventilator
+# reweight_phi: 1.078 # Other options: 1.263, 1.495x
+# reweight_lambda: 1.0 # Other options: 3.0, 5.0
+# High var death
+# reweight_phi: 10000 # Other options: 1.115276, 1.39436238980276, 1.75490549856482, 1.05583764238574, 1.01089097907915, 3.20428547731386
+reweight_phi: 1.0 # Other options: 1.001, 1.005
+reweight_lambda: 1.0 # Other options: 0.0001, 0.0005
+# num_rounds: 100 # High var death
+num_rounds: 100 # High var ventilator
+# learning_rate: 0.0001 # High var death
+learning_rate: 0.0001 # High var ventilator & sepsis
+weight_decay: 0.003
+fed_weight_method: "fed_weight_method_avg"
+fl_hiddens: "268" # High var sepsis
+focal_alpha: 0.85
+focal_gamma: 2.0 # Other options: 5.0
+bias_init_prior_prob: 0.85
+total_feature: 280
+hospital_id_col: 1
+min_death_count: 150
+eicu_path: "/eicu_mimic_drug_lab.csv"
+eicu_time_path: "/eicu_mimic_lab_time.csv"
+test_size: 0.5
+val_size: 0.5
+batch_size: 64
+dedicated_hospital_ids: "167,420,199,458,252,165,148,281,449,283,-1,-2"
+algorithm: "both" # Will conduct paired t-test if using "both". Other options: unweighted, weighted
+target_hospital_id: "-1"
+total_seed: 100 # If test_with_bootstrap is True, train once and test with seed
+test_with_bootstrap: True
+run_with_fl: False
+init_global_model: null
