@@ -46,6 +46,15 @@ pip install -r requirements.txt
 - Required libraries (see `requirements.txt`)
 
 ## Usage
+Run drug harmonization:
+- Create `data` directory under the root file.
+- Inside `data` directory, create `eicu` and `pretrained` subdirectory.
+- Download the eICU Collaborative Research Database and put it inside the `data/eicu` folder.
+- Download the BioWordVec model from https://github.com/ncbi-nlp/BioSentVec and put it inside the `data/pretrained` folder.
+- Create `output` directory under the root file
+- Run `drug_harmonization.py` script. It may take a couple of hours.
+- Find the harmonized dataset `eicu_harmonized.csv` inside `output` folder.
+
 Run the experiments using FedWeight / FedAvg:
 ```bash
 python3 main.py \
@@ -83,6 +92,8 @@ python3 etm.py --num_topics ${num_topics}
 python3 fedavg_etm.py --num_topics ${num_topics}
 python3 fedweight_etm.py --num_topics ${num_topics}
 ```
+Parameters:
+- `num_topics`: Number of topics (e.g. 64)
 
 ## Paper
 For more details, please refer to our [paper](TODO).
