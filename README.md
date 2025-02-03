@@ -28,34 +28,43 @@ FedWeight training process. **a.** The target and source hospitals independently
 FedAvg-ETM and FedWeight-ETM training process. **a.** FedAvg-ETM. In each local hospital $k \in K$, $\mathbf{X}_k$ is input into the encoder, whose output goes into two separate linear layers and produces $\boldsymbol{\mu}_k$ and $\boldsymbol{\sigma}_k$. Then, through the re-parameterization trick, we obtain the latent representation $\mathbf{Z}_k$. After applying the softmax function, $\mathbf{Z}_k$ gives the patient-topic distribution $\boldsymbol{\theta}_k$. The learnable topic embedding $\boldsymbol{\alpha}_k$ and ICD embedding $\boldsymbol{\rho}_k$ generate the topic-ICD mixture $\boldsymbol{\beta}_k$. Then, $\boldsymbol{\beta}_k$ is multiplied with $\boldsymbol{\theta}_k$ to reconstruct the input. During federated averaging, only the encoder network and the ICD embedding are uploaded to the target hospital for aggregation, whilst all other model parameters are kept locally updated.
 **b.** FedWeight-ETM. FedWeight-ETM builds on FedAvg-ETM by applying a re-weight to the log-likelihood term of the ELBO function for each patient.
 
-## Installation
-```bash
-# Clone the repository
-git clone https://github.com/li-lab-mcgill/FedWeight.git
-
-# Create a virtual environment
-python -m venv venv
-source venv/bin/activate
-
-# Install the required libraries
-pip install -r requirements.txt
-```
-
 ## Environment
 - Python 3.8+
 - Required libraries (see `requirements.txt`)
 
-## Usage
-### Drug harmonization
+## User Manual
+### Step 0: Installation
+- Clone the repository from GitHub
+```bash
+git clone https://github.com/li-lab-mcgill/FedWeight.git
+```
+
+- Create a Python virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+- Install the required libraries
+```bash
+pip install -r requirements.txt
+```
+
+### Step 1: Download dataset and drug harmonization
 - Create `data` directory under the root file.
 - Inside `data` directory, create `eicu` and `pretrained` subdirectory.
-- Download the eICU Collaborative Research Database and put it inside the `data/eicu` folder.
+- Download the eICU Collaborative Research Database (eICU) and put it inside the `data/eicu` folder.
 - Download the BioWordVec model from https://github.com/ncbi-nlp/BioSentVec and put it inside the `data/pretrained` folder.
 - Create `output` directory under the root file
 - Run `drug_harmonization.py` script. It may take a couple of hours.
 - Find the harmonized dataset `eicu_harmonized.csv` inside `output` folder.
+- Run similar steps for Medical Information Mart for Intensive Care (MIMIC-III) dataset: https://mimic.mit.edu/.
+- Combine both harmonized eICU and MIMIC-III dataset and put it inside `data` folder.
 
-### FedWeight
+### Step 2: Run FedWeight experiments
+
+This step runs FedWeight experiments to predict clinical outcomes (i.e. mortality, ventilator, sepsis, ICU length of stay).
+
 ```bash
 python3 main.py \
     experiment=${experiment} \
@@ -86,7 +95,15 @@ Parameters:
     - `vae`: VAE
     - `vqvae`: VQ-VAE
 
-### FedWeight-ETM
+After running the experiments, you can find the trained models saved in `output` folder.
+
+### Step 3: Identify influential drugs and lab tests
+With trained FedWeight model, we can use it to identify drugs and lab tests associated with clinical outcomes. Under the `notebook` directory, run `analyze_causal.ipynb` notebook.
+
+### Step 4: Run ETM, FedAvg-ETM, and FedWeight-ETM
+
+This step runs experiments to identify latent topics in federated learning settings.
+
 Inside `notebook/etm` folder, run the following commands:
 ```bash
 # Non-federated ETM
@@ -100,5 +117,8 @@ python3 fedweight_etm.py --num_topics ${num_topics}
 ```
 Parameters:
 - `num_topics`: Number of topics (e.g. 64)
+
+### Step 5: Identify mortality-associated topics and ICD codes
+By using FedWeight-ETM, we can identify mortality-associated topics and ICD codes. Under the `notebook/etm` directory, run `etm_analyse_icd_result.ipynb` notebook.
 
 ## Citation
